@@ -115,58 +115,18 @@
     "variables": {
         "defaultApiVersion": "2015-05-01-preview",
         "clusterApiVersion": "2015-03-01-preview",
-//        "clusterVNetName": "[concat(parameters('clusterName'),'-vnet')]",
         "clusterVNetName": "[parameters('vmNamePrefix')]",
-        /*"hadoopZookeeperSize": "Small",
-        "hbaseZookeeperSize": "Medium",
-        "stormZookeeperSize": "Small"*/
         "hadoopZookeeperSize": "Medium",
         "hbaseZookeeperSize": "Medium",
         "stormZookeeperSize": "Medium"
     },
     "resources": [
-        /*{
-            "name": "[variables('clusterVNetName')]",
-            "type": "Microsoft.Network/virtualNetworks",
-            "location": "[parameters('location')]",
-            "apiVersion": "[variables('defaultApiVersion')]",
-            "dependsOn": [ ],
-            "tags": { },
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[parameters('clusterVNetAddressSpace')]"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "[parameters('clusterVNetSubnetName')]",
-                        "properties": {
-                            "addressPrefix": "[parameters('clusterVNetSubnetAddressRange')]"
-                        }
-                    }
-                ]
-            }
-        },*/
-        /*{
-            "name": "[parameters('clusterStorageAccountName')]",
-            "type": "Microsoft.Storage/storageAccounts",
-            "location": "[parameters('location')]",
-            "apiVersion": "[variables('defaultApiVersion')]",
-            "dependsOn": [ ],
-            "tags": { },
-            "properties": {
-                "accountType": "Standard_LRS"
-            }
-        },*/
         {
             "name": "[parameters('clusterName')]",
             "type": "Microsoft.HDInsight/clusters",
             "location": "[parameters('location')]",
             "apiVersion": "[variables('clusterApiVersion')]",
             "dependsOn": [
-                /*"[concat('Microsoft.Storage/storageAccounts/',parameters('clusterStorageAccountName'))]",*/
-               // "[concat('Microsoft.Network/virtualNetworks/',variables('clusterVNetName'))]"
             ],
             "tags": { },
             "properties": {
@@ -210,14 +170,7 @@
                             "virtualNetworkProfile": {
                                 "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
                                 "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', parameters('clusterVNetSubnetName'))]"
-                            }/*,
-                            "scriptActions": [
-                                {
-                                    "name": "setenvironmentvariable",
-                                    "uri": "[parameters('scriptActionUri')]",
-                                    "parameters": "headnode"
-                                }
-                            ]*/
+                            }
                         },
                         {
                             "name": "workernode",
@@ -258,14 +211,7 @@
                             "virtualNetworkProfile": {
                                 "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
                                 "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', parameters('clusterVNetSubnetName'))]"
-                            }/*,
-                            "scriptActions": [
-                                {
-                                    "name": "setenvironmentvariable",
-                                    "uri": "[parameters('scriptActionUri')]",
-                                    "parameters": "zookeepernode"
-                                }
-                            ]*/
+                            }
                         }
                     ]
                 }
@@ -274,10 +220,6 @@
 
     ],
     "outputs": {
-        /*"vnet": {
-            "type": "object",
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks',variables('clusterVNetName')))]"
-        },*/
         "cluster":{
             "type" : "object",
             "value" : "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('clusterName')))]"

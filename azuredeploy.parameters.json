@@ -31,11 +31,7 @@
         },
         "clusterWorkerNodeCount": {
             "value": 1
-        }/*,
-        "clusterVNetSubnetName": {
-            "value": "test-hdcluster"
-        }*/
-        ,
+        },
         "clusterVNetSubnetName": {
             "value": "test-wh-public"
         }
