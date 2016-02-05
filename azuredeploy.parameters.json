@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "West Europe"
+        },
+        "clusterName": {
+            "value": "datlowestorm"
+        },
+        "clusterType": { 
+            "value": "storm"
+        },
+        "clusterStorageAccountName": {
+            "value": "datlowehd"
+        },
+        "clusterLoginUserName": {
+            "value": "datel"
+        },
+        "clusterLoginPassword": {
+            "value": "xxx!"
+        },
+        "sshUserName": {
+            "value": "sshdatel"
+        },
+        "sshPassword": {
+            "value": "xxx!"
+        },
+        "vmNamePrefix": {
+            "value": "cwtest"
+        },
+        "clusterWorkerNodeCount": {
+            "value": 1
+        }/*,
+        "clusterVNetSubnetName": {
+            "value": "test-hdcluster"
+        }*/
+        ,
+        "clusterVNetSubnetName": {
+            "value": "test-wh-public"
+        }
+    }
+}
